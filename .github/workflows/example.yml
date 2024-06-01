@@ -69,7 +69,12 @@ jobs:
         python -m pip install --upgrade scipy  # ensure default install deps
         python -m pip uninstall --yes scipy
         python -m pip install --index-url https://pypi.anaconda.org/scientific-python-nightly-wheels/simple scipy
+        python -m pip install --upgrade pyyaml  # given reporting information
         python -m pip list
+
+    - name: Reporting information
+      run: |
+        python -c 'import sys, scipy, numpy; print(scipy.__version__, numpy.__version__, sys.version_info); scipy.show_config()'
 
     - name: Reproducer
       run: |
