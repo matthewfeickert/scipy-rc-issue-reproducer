@@ -37,6 +37,10 @@ jobs:
         python -m pip install --upgrade 'scipy==1.14.0rc1'
         python -m pip list
 
+    - name: Reporting information
+      run: |
+        python -c 'import sys, scipy, numpy; print(scipy.__version__, numpy.__version__, sys.version_info); scipy.show_config()'
+
     - name: Reproducer
       run: |
         python -c 'from scipy import special'
