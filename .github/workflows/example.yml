@@ -39,4 +39,4 @@ jobs:
 
     - name: Reproducer
       run: |
-        python -c 'import scipy'
+        python -c 'from scipy import special'
