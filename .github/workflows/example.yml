@@ -68,7 +68,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install --upgrade scipy  # ensure default install deps
         python -m pip uninstall --yes scipy
-        python -m pip --index-url https://pypi.anaconda.org/scientific-python-nightly-wheels/simple scipy
+        python -m pip install --index-url https://pypi.anaconda.org/scientific-python-nightly-wheels/simple scipy
         python -m pip list
 
     - name: Reproducer
