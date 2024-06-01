@@ -1,0 +1,43 @@
+name: Reproducer
+
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  example:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-13]
+        python-version: ['3.12']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install uv
+        uv pip install --system --upgrade wheel
+        uv pip install --system --upgrade --pre scipy
+        python -m pip list
+
+    - name: Reproducer
+      run: |
+        python -c 'import scipy'
+        python -c 'from scipy import special'
